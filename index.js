@@ -19,7 +19,7 @@ const client = new Client({
 	}
 });
 
-console.log(chalk.green('\n🤖 Simple WhatsApp Bot Sticker by Aromakelapa\n'));
+console.log(chalk.green('\nSimple WhatsApp Bot Sticker by Aromakelapa\n'));
 
 // Init Bot
 client.initialize();
@@ -65,27 +65,34 @@ client.on('message', async (msg) => {
 
   try {
     switch (msg.body.toLowerCase()) {
-      case '!stiker':
-      case '!sticker':
-      case 'st':
+      case '.stiker':
+      case '.sticker':
+      case '.s':
         if(msg.hasMedia){
-          const media = await msg.downloadMedia();
-          chat.sendMessage(media,
-            {
-              sendMediaAsSticker: true,
-              stickerName: 'github.com/Aromakelapa',
-              stickerAuthor: '/whatsapp-bot-sticker'
-            }
-          );
-          console.log(chalk.green(`💬 ${contact.pushname} : Sticker sent!\n`));
-        } else {
-          msg.reply('Send image with caption !sticker');
-        };
+		const media = await msg.downloadMedia();
+		msg.reply('Wait a Minute!');
+		chat.sendMessage(media,
+		{
+			sendMediaAsSticker: true,
+			stickerName: 'name your sticker',
+			stickerAuthor: 'name author'
+		}
+		);
+		console.log(chalk.green(`💬 ${contact.pushname} : Sticker sent!\n`));
+		} else {
+		msg.reply('kirim gambar dengan caption .s, ketik (info) untuk melihat informasi hari ini');
+		};
         break;
-      case '!error':
-        // console.log(new Error());
+	    
+	case 'error':
+	msg.reply('info diterima!');
+	console.log(chalk.red(`ERROR\n`));
         new Error();
         break;
+		
+	case 'info':
+	msg.reply('Prefix hari ini (.)');
+	break;
     }
   } catch (error) {
     console.error(error);
