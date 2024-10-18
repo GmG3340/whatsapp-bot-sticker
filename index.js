@@ -98,7 +98,21 @@ client.on('message', async (msg) => {
     console.error(error);
   };
 });
+// tag all member
+client.on('message', async (msg) => {
+    if (msg.body === '.all') {
+        const chat = await msg.getChat();
+        let text = '';
+        let mentions = [];
 
+        for (let participant of chat.participants) {
+            mentions.push(`${participant.id.user}@c.us`);
+            text += `@${participant.id.user} `;
+        }
+
+        await chat.sendMessage(text, { mentions });
+    }
+});
 // Disconnected
 client.on('disconnected', (reason) => {
   console.log('Client was logged out, Reason : ', reason);
